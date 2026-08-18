@@ -635,6 +635,697 @@
     </div>
   </div>
 </footer>
+<!-- ================= KAMALAM HOSPITAL CTA POPUP ================= -->
 
+<style>
+.kh-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 99999;
+}
+
+.kh-popup {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.30);
+    animation: khPopupIn 0.25s ease-out;
+}
+
+@keyframes khPopupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/* ---------- POPUP HEADER ---------- */
+
+.kh-popup-header {
+    background: linear-gradient(135deg, #087b78, #0aa6a6);
+    color: white;
+    padding: 26px 28px;
+    position: relative;
+}
+
+.kh-popup-header h2 {
+    margin: 0 40px 8px 0;
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.kh-popup-header p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* ---------- CLOSE BUTTON ---------- */
+
+.kh-popup-close {
+    position: absolute;
+    right: 17px;
+    top: 12px;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+
+/* ---------- FORM ---------- */
+
+.kh-popup-form {
+    padding: 25px 28px 28px;
+}
+
+.kh-popup-field {
+    margin-bottom: 15px;
+}
+
+.kh-popup-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #17323a;
+}
+
+.kh-popup-field input,
+.kh-popup-field select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #d6e0e2;
+    border-radius: 9px;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.kh-popup-field input:focus,
+.kh-popup-field select:focus {
+    outline: none;
+    border-color: #0aa6a6;
+    box-shadow: 0 0 0 3px rgba(10, 166, 166, 0.12);
+}
+
+
+/* ---------- TWO COLUMN ROW ---------- */
+
+.kh-popup-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+
+/* ---------- SUBMIT BUTTON ---------- */
+
+.kh-popup-submit {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: 14px;
+    background: #087b78;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.kh-popup-submit:hover {
+    background: #066663;
+}
+
+.kh-popup-submit:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+
+/* ---------- PRIVACY NOTE ---------- */
+
+.kh-popup-note {
+    margin: 12px 0 0;
+    text-align: center;
+    color: #77858a;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* ---------- SUCCESS MESSAGE ---------- */
+
+.kh-popup-success {
+    display: none;
+    text-align: center;
+    padding: 35px 28px 40px;
+}
+
+.kh-popup-success-icon {
+    font-size: 45px;
+    color: #087b78;
+}
+
+.kh-popup-success h3 {
+    margin: 10px 0 8px;
+    font-size: 24px;
+    color: #17323a;
+}
+
+.kh-popup-success p {
+    color: #65757b;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+
+/* ---------- FLOATING CALLBACK BUTTON ---------- */
+
+.kh-floating-cta {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9998;
+    border: 0;
+    border-radius: 50px;
+    padding: 15px 22px;
+    background: #e31e27;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.20);
+    transition: 0.2s;
+}
+
+.kh-floating-cta:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+
+    .kh-popup-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .kh-popup-header {
+        padding: 22px;
+    }
+
+    .kh-popup-form {
+        padding: 20px 22px 22px;
+    }
+
+    .kh-popup-header h2 {
+        font-size: 23px;
+    }
+
+    .kh-floating-cta {
+        right: 15px;
+        bottom: 15px;
+        padding: 13px 18px;
+    }
+}
+</style>
+
+
+<!-- ================= FLOATING CTA BUTTON ================= -->
+
+<button
+    type="button"
+    class="kh-floating-cta"
+    onclick="khOpenPopup()">
+
+    Request a Callback
+
+</button>
+
+
+<!-- ================= POPUP ================= -->
+
+<div
+    class="kh-popup-overlay"
+    id="khPopup"
+    onclick="khOverlayClick(event)">
+
+    <div class="kh-popup">
+
+
+        <!-- POPUP HEADER -->
+
+        <div class="kh-popup-header">
+
+            <button
+                type="button"
+                class="kh-popup-close"
+                onclick="khClosePopup()"
+                aria-label="Close">
+
+                &times;
+
+            </button>
+
+
+            <h2>
+                Need Medical Assistance?
+            </h2>
+
+
+            <p>
+                Book an appointment or request a callback
+                from our team.
+            </p>
+
+        </div>
+
+
+        <!-- ================= FORM ================= -->
+
+        <form
+            class="kh-popup-form"
+            id="khAppointmentForm">
+
+
+            <!--
+            IMPORTANT:
+            Replace YOUR_ACCESS_KEY_HERE with your
+            Web3Forms Access Key.
+            -->
+
+            <input
+                type="hidden"
+                name="access_key"
+                value="9e36b947-b513-43c6-8acd-faea7b5cf73b">
+
+
+            <!-- EMAIL SUBJECT -->
+
+            <input
+                type="hidden"
+                name="subject"
+                value="New Appointment / Callback Request - Kamalam Hospital">
+
+
+            <!-- SENDER NAME -->
+
+            <input
+                type="hidden"
+                name="from_name"
+                value="Kamalam Hospital Website">
+
+
+            <!-- SPAM PROTECTION -->
+
+            <input
+                type="checkbox"
+                name="botcheck"
+                style="display:none;">
+
+
+            <!-- ================= NAME ================= -->
+
+            <div class="kh-popup-field">
+
+                <label for="khName">
+                    Full Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="khName"
+                    name="name"
+                    placeholder="Your full name"
+                    autocomplete="name"
+                    required>
+
+            </div>
+
+
+            <!-- ================= PHONE + EMAIL ================= -->
+
+            <div class="kh-popup-row">
+
+
+                <div class="kh-popup-field">
+
+                    <label for="khPhone">
+                        Phone Number *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="khPhone"
+                        name="phone"
+                        placeholder="10-digit mobile number"
+                        autocomplete="tel"
+                        required>
+
+                </div>
+
+
+                <div class="kh-popup-field">
+
+                    <label for="khEmail">
+                        Email *
+                    </label>
+
+                    <input
+                        type="email"
+                        id="khEmail"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= SERVICE + DATE ================= -->
+
+            <div class="kh-popup-row">
+
+
+                <div class="kh-popup-field">
+
+                    <label for="khService">
+                        Service Required *
+                    </label>
+
+                    <select
+                        id="khService"
+                        name="service"
+                        required>
+
+                        <option value="">
+                            Select a service
+                        </option>
+
+                        <option value="Doctor Consultation">
+                            Doctor Consultation
+                        </option>
+
+                        <option value="Diagnostic / Lab">
+                            Diagnostic / Lab
+                        </option>
+
+                        <option value="Scan">
+                            Scan
+                        </option>
+
+                        <option value="Pharmacy">
+                            Pharmacy
+                        </option>
+
+                        <option value="Emergency Assistance">
+                            Emergency Assistance
+                        </option>
+
+                        <option value="General Enquiry">
+                            General Enquiry
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="kh-popup-field">
+
+                    <label for="khDate">
+                        Preferred Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="khDate"
+                        name="preferred_date">
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= SUBMIT ================= -->
+
+            <button
+                type="submit"
+                class="kh-popup-submit"
+                id="khSubmitButton">
+
+                Request Appointment
+
+            </button>
+
+
+            <p class="kh-popup-note">
+
+                Please do not enter diagnoses, medical reports,
+                symptoms, or other sensitive medical information
+                in this form.
+
+            </p>
+
+
+        </form>
+
+
+        <!-- ================= SUCCESS MESSAGE ================= -->
+
+        <div
+            class="kh-popup-success"
+            id="khSuccess">
+
+
+            <div class="kh-popup-success-icon">
+                ✓
+            </div>
+
+
+            <h3>
+                Thank you!
+            </h3>
+
+
+            <p>
+                Your request has been received.
+                Our team will contact you shortly.
+            </p>
+
+
+            <button
+                type="button"
+                class="kh-popup-submit"
+                onclick="khClosePopup()">
+
+                Close
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* ---------- OPEN POPUP ---------- */
+
+function khOpenPopup() {
+
+    document.getElementById("khPopup").style.display = "flex";
+
+}
+
+
+/* ---------- CLOSE POPUP ---------- */
+
+function khClosePopup() {
+
+    document.getElementById("khPopup").style.display = "none";
+
+}
+
+
+/* ---------- CLOSE WHEN CLICKING OUTSIDE ---------- */
+
+function khOverlayClick(event) {
+
+    if (
+        event.target ===
+        document.getElementById("khPopup")
+    ) {
+
+        khClosePopup();
+
+    }
+
+}
+
+
+/* ---------- SUBMIT FORM ---------- */
+
+document
+    .getElementById("khAppointmentForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const form = this;
+
+
+            const button =
+                document.getElementById(
+                    "khSubmitButton"
+                );
+
+
+            const success =
+                document.getElementById(
+                    "khSuccess"
+                );
+
+
+            button.disabled = true;
+
+            button.innerText = "Sending...";
+
+
+            const formData =
+                new FormData(form);
+
+
+            const data =
+                Object.fromEntries(
+                    formData.entries()
+                );
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "https://api.web3forms.com/submit",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify(data)
+
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (result.success) {
+
+
+                    form.style.display = "none";
+
+                    success.style.display = "block";
+
+                    form.reset();
+
+
+                } else {
+
+
+                    alert(
+                        "Sorry, we could not submit your request. Please try again."
+                    );
+
+
+                }
+
+
+            } catch (error) {
+
+
+                alert(
+                    "Something went wrong. Please try again or call the hospital."
+                );
+
+
+            }
+
+
+            button.disabled = false;
+
+            button.innerText =
+                "Request Appointment";
+
+
+        }
+    );
+
+
+/* ==================================================
+   AUTOMATICALLY OPEN POPUP AFTER 10 SECONDS
+   ================================================== */
+
+setTimeout(
+    function() {
+
+        khOpenPopup();
+
+    },
+    10000
+);
+
+
+</script>
+
+<!-- ================= END KAMALAM HOSPITAL CTA POPUP ================= -->
 </body>
 </html>
